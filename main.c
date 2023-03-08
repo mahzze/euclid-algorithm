@@ -23,38 +23,48 @@ int main(int argc, char *argv[]) {
   printf("Select the mode. Press:\n r ) to select random values within the predefined range;\n rmd) to select the minumum value for the range (right now, the value is %d);\n rld) to select the limit value of the range (right now, the value is %d);\n i ) select the two values.\n When you are done, type in \'ext\' to exit the program\n", range_min, range_lim);
   scanf("%3s", mode);
 
-  while (strcmp("ext", mode) == 23) {
-    if (strcmp("rmd", mode)) {
+  while (1) {
+    if (strcmp("ext", mode) == 0){
+      printf("\nexecution ended");
+      break;
+    } 
+
+    if (strcmp("rmd", mode) == 0) {
       printf("Type in the new minimum value of the range\n");
-      int32_t newval;
-      scanf("%d", &newval);
-      range_min = newval;
+      int32_t* newval = (int32_t*) malloc(sizeof(int32_t));
+      scanf("%d", newval);
+      range_min = *newval;
+      printf("Range right now: %d <-> %d", range_min, range_lim);
     }
-    if (strcmp("rld", mode)) {
+
+    if (strcmp("rld", mode) == 0) {
       printf("Type in the new maximum value of the range\n");
-      int32_t newval;
-      scanf("%d", &newval);
-      range_min = newval;
+      int32_t* newval = (int32_t*) malloc(sizeof(int32_t));
+      scanf("%d", newval);
+      range_lim = *newval;
+      free(newval);
+      printf("Range right now: %d <-> %d", range_min, range_lim);
     }
-    if (strcmp("r", mode)) {
+    
+    if (strcmp("r", mode) == 0) {
       printf("Type in the new maximum value of the range\n");
-      int32_t newval;
-      scanf("%d", &newval);
-      range_min = newval;
+      int32_t* newval = (int32_t*) malloc(sizeof(int32_t));
+      scanf("%d", newval);
+      range_min = *newval;
+      free(newval);
     }
-    if (strcmp("i", mode)) {
+
+    if (strcmp("i", mode) == 0) {
       printf("Type in the first value\n");
       scanf("%d", &x);
       printf("Type in the second value\n");
       scanf("%d", &y);
+      
       int32_t gdc = euclid(x, y); 
-      
-      if (gdc == 1) {
-        printf("Result: 1. That's because either because both numbers are 1, or\nbecause one of them is a prime number. In this case, the only GDC is one.");
-      }
-      
-      printf("Result: %d", gdc);
+      printf("GDC: %d\n", gdc);  
     }
+    printf("\nType in the next operation type.\n");
+    scanf("%3s", mode);
   }
 
   return EXIT_SUCCESS;
